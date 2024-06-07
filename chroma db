@@ -1,0 +1,43 @@
+import chromadb
+client = chromadb.Client()
+collection_name = "filter_example_collection"
+collection = client.create_collection(name=collection_name)
+collection.add(
+    embeddings=[
+        [1.1, 2.3, 3.2],
+        [4.5, 6.9, 4.4],
+        [1.1, 2.3, 3.2],
+        [4.5, 6.9, 4.4],
+        [1.1, 2.3, 3.2],
+        [4.5, 6.9, 4.4],
+        [1.1, 2.3, 3.2],
+        [4.5, 6.9, 4.4],
+    ],
+    metadatas=[
+        {"status": "1"},
+        {"status": "2"},
+        {"status": "3"},
+        {"status": "4"},
+        {"status": "5"},
+        {"status": "6"},
+        {"status": "7"},
+        {"status": "8"},
+    ],
+    documents=[
+        "A document that discusses domestic policy",
+        "A document that discusses international affairs",
+        "A document that discusses kittens",
+        "A document that discusses dogs",
+        "A document that discusses chocolate",
+        "A document that is sixth that discusses government",
+        "A document that discusses international affairs",
+        "A document that discusses global affairs"
+    ],
+    ids=["id1", "id2", "id3", "id4", "id5", "id6", "id7", "id8"],
+)
+
+
+
+  collection.peek()
+
+  collection.query(query_embeddings=[[0, 0, 0]],where={'status': {'$in': ['1', '2', '3']}}, n_results=2)
